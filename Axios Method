@@ -1,0 +1,21 @@
+const axios = require('axios');
+
+async function unEnrollUser(userKey) {
+    const url = `https://admin.googleapis.com/admin/directory/v1/users/${userKey}`;
+    
+    try {
+        const response = await axios.delete(url, {
+            headers: {
+                'Authorization': `Bearer YOUR_ACCESS_TOKEN`, // Replace with your OAuth2 token
+                'Content-Type': 'application/json'
+            }
+        });
+        console.log(`User ${userKey} has been un-enrolled successfully.`);
+    } catch (error) {
+        console.error(`Failed to un-enroll user: ${error.response.data.error.message}`);
+    }
+}
+
+// Example usage
+const userKey = 'user@example.com'; // Replace with the user's email
+unEnrollUser(userKey);
