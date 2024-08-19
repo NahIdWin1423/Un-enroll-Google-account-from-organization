@@ -1,0 +1,20 @@
+const { google } = require('googleapis');
+const admin = google.admin('directory_v1');
+
+async function unEnrollUser(auth, userKey) {
+    const service = google.admin({ version: 'directory_v1', auth });
+    
+    try {
+        await service.users.delete({
+            userKey: userKey
+        });
+        console.log(`User ${userKey} has been un-enrolled successfully.`);
+    } catch (error) {
+        console.error(`Failed to un-enroll user: ${error.message}`);
+    }
+}
+
+// Example usage
+const auth = 'YOUR_AUTH_TOKEN'; // Replace with your OAuth2 token
+const userKey = 'user@example.com'; // Replace with the user's email
+unEnrollUser(auth, userKey);
